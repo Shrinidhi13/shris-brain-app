@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070a0f">
+  <meta name="description" content="Shri's Stock Brain — a transparent, sector-aware stock philosophy explorer.">
+  <meta name="app-build" content="2026.07.12-brain-r2">
+  <title>Shri's Stock Brain</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23060a0f'/%3E%3Cpath d='M16 42c8-20 20-25 32-20-8 1-13 5-15 11 5-3 10-3 15 0-12 1-20 6-24 15z' fill='%23b7ff5a'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css?v=20260712-brain-r2">
+</head>
+<body>
+  <noscript>This app needs JavaScript to draw the brain map and calculate transparent scores.</noscript>
+  <canvas id="ambientCanvas" aria-hidden="true"></canvas>
+  <div class="aurora aurora-one" aria-hidden="true"></div>
+  <div class="aurora aurora-two" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+  <div id="cursorGlow" aria-hidden="true"></div>
+  <div id="cursorDot" aria-hidden="true"></div>
+
+  <header class="site-header" id="top">
+    <a class="brand magnetic" href="#top" aria-label="Shri's Stock Brain home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" role="img">
+          <path d="M16.4 8.7c-5.2 1.4-8.9 6-8.9 11.4 0 2.2.6 4.3 1.7 6.1-1.7 1.8-2.7 4.2-2.7 6.8 0 5.5 4.5 10 10 10 2.9 0 5.6-1.3 7.4-3.4 1.8 2.1 4.5 3.4 7.4 3.4 5.5 0 10-4.5 10-10 0-2.6-1-5-2.7-6.8 1.1-1.8 1.7-3.9 1.7-6.1 0-5.4-3.7-10-8.9-11.4C30 4.9 26.5 3 23.9 6.1 21.2 3 17.7 4.9 16.4 8.7Z" fill="none" stroke="currentColor" stroke-width="2.2"/>
+          <path d="M24 7v32M16 15c4 0 8 3 8 7M32 15c-4 0-8 3-8 7M13 28c5-1 8 1 11 5M35 28c-5-1-8 1-11 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span>
+        <strong>SHRI'S BRAIN</strong>
+        <small>stocks, decoded</small>
+      </span>
+    </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="#brain">Brain map</a>
+      <a href="#analyze">Analyze</a>
+      <a href="#dna">Portfolio DNA</a>
+      <a href="#method">Method</a>
+    </nav>
+    <button class="nav-cta magnetic" data-scroll="#analyze">Run a stock</button>
+  </header>
+
+  <main>
+    <section class="hero section-shell" id="brain">
+      <div class="hero-copy reveal">
+        <div class="eyebrow"><span class="live-dot"></span> PERSONAL PHILOSOPHY ENGINE</div>
+        <h1>Not a screener.<br><span>A map of how Shri thinks.</span></h1>
+        <p class="hero-lede">Upload a company, fetch a free end-of-day snapshot, or import a researched Skill file. The app separates <strong>“this feels like Shri”</strong> from <strong>“this is fundamentally good.”</strong></p>
+        <div class="hero-actions">
+          <button class="primary-button magnetic" data-scroll="#analyze">
+            Analyze a stock
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 14 0M13 6l6 6-6 6"/></svg>
+          </button>
+          <button class="ghost-button magnetic" id="tourButton">Play the brain tour</button>
+        </div>
+        <div class="trust-row">
+          <div><strong>2 scores</strong><span>fit ≠ quality</span></div>
+          <div><strong>9 lenses</strong><span>sector-aware</span></div>
+          <div><strong>0 promises</strong><span>research, not tips</span></div>
+        </div>
+      </div>
+
+      <div class="brain-stage reveal" data-tilt>
+        <div class="stage-topline">
+          <div>
+            <span class="stage-kicker">LIVE PHILOSOPHY GRAPH</span>
+            <h2>Shri's decision constellation</h2>
+          </div>
+          <div class="profile-confidence" title="Confidence in the philosophy inferred from the current evidence">
+            <span>Profile confidence</span>
+            <strong id="profileConfidence">73%</strong>
+          </div>
+        </div>
+        <div class="brain-canvas-wrap">
+          <canvas id="brainCanvas" aria-label="Interactive graph connecting Shri's holdings to investment themes"></canvas>
+          <div id="brainTooltip" role="status" aria-live="polite"></div>
+          <div class="graph-hint"><span></span> Move over a node. Click to pin.</div>
+        </div>
+        <div class="stage-legend" id="clusterLegend"></div>
+      </div>
+    </section>
+
+    <section class="philosophy-marquee" aria-label="Philosophy summary">
+      <div class="marquee-track">
+        <span>LOW VALUATION</span><i>+</i><span>VISIBLE CATALYST</span><i>+</i><span>TANGIBLE ASSETS</span><i>+</i><span>INDIA TAILWINDS</span><i>−</i><span>VALUE TRAPS</span><i>−</i><span>WEAK CASH CONVERSION</span><i>−</i><span>GOVERNANCE RISK</span>
+        <span>LOW VALUATION</span><i>+</i><span>VISIBLE CATALYST</span><i>+</i><span>TANGIBLE ASSETS</span><i>+</i><span>INDIA TAILWINDS</span><i>−</i><span>VALUE TRAPS</span><i>−</i><span>WEAK CASH CONVERSION</span><i>−</i><span>GOVERNANCE RISK</span>
+      </div>
+    </section>
+
+    <section class="analyzer-section section-shell" id="analyze">
+      <div class="section-heading reveal">
+        <div>
+          <span class="section-number">01 / ANALYZE</span>
+          <h2>Put a stock inside the brain.</h2>
+        </div>
+        <p>Start with a free BSE end-of-day lookup, upload current fundamentals, or import the JSON generated by the companion Skill. Missing evidence lowers confidence instead of becoming fake precision.</p>
+      </div>
+
+      <div class="analyzer-grid">
+        <aside class="input-console glass-card reveal">
+          <div class="mode-tabs" role="tablist" aria-label="Data input mode">
+            <button class="mode-tab active" data-mode="lookup" role="tab" aria-selected="true">Free lookup</button>
+            <button class="mode-tab" data-mode="upload" role="tab" aria-selected="false">Upload</button>
+            <button class="mode-tab" data-mode="manual" role="tab" aria-selected="false">Manual</button>
+          </div>
+
+          <div class="mode-panel active" id="lookupPanel" data-panel="lookup">
+            <div class="input-intro">
+              <h3>Free BSE snapshot</h3>
+              <p>Uses Alpha Vantage's documented daily global-equity endpoint. It may return price-only data for some Indian names; the app will then ask for filings or a Skill export.</p>
+            </div>
+            <label class="field-label" for="lookupSymbol">BSE symbol</label>
+            <div class="input-with-suffix">
+              <input id="lookupSymbol" type="text" autocomplete="off" placeholder="RELIANCE.BSE" value="RELIANCE.BSE">
+              <span>EOD</span>
+            </div>
+            <label class="field-label" for="apiKey">Free Alpha Vantage API key</label>
+            <input id="apiKey" type="password" autocomplete="off" placeholder="Paste key — never bundled in the app">
+            <label class="checkbox-row"><input id="rememberKey" type="checkbox"><span>Remember on this device only</span></label>
+            <div class="console-actions">
+              <button class="primary-button full magnetic" id="lookupButton">Fetch & inspect</button>
+              <button class="text-button" id="apiHelpButton">Why this data path?</button>
+            </div>
+          </div>
+
+          <div class="mode-panel" id="uploadPanel" data-panel="upload">
+            <div class="input-intro">
+              <h3>Upload evidence</h3>
+              <p>Accepts normalized company JSON, Skill output JSON, or a one-row/key-value CSV. The Skill is not called live: export its JSON in ChatGPT, then load it here. Processing happens in your browser.</p>
+            </div>
+            <label class="drop-zone" id="dropZone" for="fileInput">
+              <input id="fileInput" type="file" accept=".json,.csv,application/json,text/csv">
+              <span class="drop-icon" aria-hidden="true">↥</span>
+              <strong>Drop JSON or CSV here</strong>
+              <small>or click to choose a file</small>
+            </label>
+            <div class="file-status" id="fileStatus">No file loaded.</div>
+            <div class="console-actions two">
+              <button class="primary-button magnetic" id="analyzeUploadButton" disabled>Analyze file</button>
+              <a class="ghost-button download-link" href="sample-data/company-input-template.json" download>JSON template</a>
+            </div>
+          </div>
+
+          <div class="mode-panel" id="manualPanel" data-panel="manual">
+            <div class="input-intro">
+              <h3>Fast manual screen</h3>
+              <p>Enough for a low-confidence first pass. The detailed view will show exactly what is still missing.</p>
+            </div>
+            <div class="form-grid two-col">
+              <label><span>Company</span><input id="manualName" type="text" placeholder="Company name"></label>
+              <label><span>Symbol</span><input id="manualSymbol" type="text" placeholder="TICKER"></label>
+              <label><span>Sector</span>
+                <select id="manualSector">
+                  <option value="bank">Bank</option><option value="nbfc">NBFC</option><option value="infrastructure">Infrastructure / EPC</option><option value="power">Power</option><option value="pharma">Pharma</option><option value="cyclical">Cyclical / commodity</option><option value="auto">Auto</option><option value="real_estate">Real estate</option><option value="hospitality">Hospitality</option><option value="generic">Other</option>
+                </select>
+              </label>
+              <label><span>Market-cap band</span>
+                <select id="manualBand"><option value="small">Small</option><option value="mid">Mid</option><option value="large">Large</option></select>
+              </label>
+              <label><span>P/E</span><input id="manualPe" type="number" step="0.01" placeholder="8.5"></label>
+              <label><span>P/B</span><input id="manualPb" type="number" step="0.01" placeholder="1.1"></label>
+              <label><span>ROE %</span><input id="manualRoe" type="number" step="0.01" placeholder="15"></label>
+              <label><span>ROA / ROCE %</span><input id="manualReturn" type="number" step="0.01" placeholder="1.3 or 18"></label>
+              <label><span>Profit CAGR %</span><input id="manualGrowth" type="number" step="0.01" placeholder="15"></label>
+              <label><span>Net debt / EBITDA</span><input id="manualDebt" type="number" step="0.01" placeholder="2.0"></label>
+            </div>
+            <div class="qualitative-sliders compact">
+              <label><span>Catalyst</span><input id="manualCatalyst" type="range" min="0" max="100" value="65"><output>65</output></label>
+              <label><span>Tangible / understandable</span><input id="manualTangible" type="range" min="0" max="100" value="75"><output>75</output></label>
+              <label><span>Governance confidence</span><input id="manualGovernance" type="range" min="0" max="100" value="70"><output>70</output></label>
+            </div>
+            <button class="primary-button full magnetic" id="manualAnalyzeButton">Run low-confidence screen</button>
+          </div>
+
+          <div class="demo-strip">
+            <span>Need to see it first?</span>
+            <button id="demoBankButton">Load good-value bank demo</button>
+            <button id="demoTrapButton">Load tempting EPC trap</button>
+          </div>
+        </aside>
+
+        <div class="result-placeholder glass-card reveal" id="resultPlaceholder">
+          <div class="placeholder-orbit" aria-hidden="true"><span></span><span></span><span></span></div>
+          <span class="placeholder-code">WAITING FOR EVIDENCE</span>
+          <h3>The score does not exist yet.</h3>
+          <p>That is a feature. A precise number before the data arrives is exactly the behaviour this app is designed to avoid.</p>
+          <div class="placeholder-checks"><span>Identity</span><span>Valuation</span><span>Quality</span><span>Sector test</span><span>Bias guard</span></div>
+        </div>
+
+        <article class="result-dashboard" id="resultDashboard" hidden aria-live="polite">
+          <header class="result-header glass-card">
+            <div>
+              <span class="result-kicker" id="resultTicker">—</span>
+              <h3 id="resultCompany">Company</h3>
+              <p id="resultMeta">Evidence date unavailable</p>
+            </div>
+            <div class="result-actions">
+              <button class="icon-button" id="downloadResultButton" title="Download analysis JSON" aria-label="Download analysis JSON">↓</button>
+              <button class="icon-button" id="resetResultButton" title="Reset analysis" aria-label="Reset analysis">×</button>
+            </div>
+          </header>
+
+          <div class="result-hero-grid">
+            <section class="meter-card glass-card">
+              <div class="meter-copy">
+                <span>SHRI HAPPINESS METER</span>
+                <strong id="meterLabel">Needs data</strong>
+                <p id="meterVerdict">—</p>
+              </div>
+              <div class="gauge" id="gauge" role="img" aria-label="Shri happiness score">
+                <svg viewBox="0 0 220 130" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="gaugeGradient" x1="0" x2="1">
+                      <stop offset="0" stop-color="#ff6c75"/>
+                      <stop offset="0.48" stop-color="#ffd45a"/>
+                      <stop offset="1" stop-color="#b7ff5a"/>
+                    </linearGradient>
+                  </defs>
+                  <path class="gauge-track" d="M25 108 A85 85 0 0 1 195 108"/>
+                  <path class="gauge-progress" id="gaugeProgress" d="M25 108 A85 85 0 0 1 195 108"/>
+                </svg>
+                <div class="gauge-number"><strong id="happinessScore">0</strong><span>/100</span></div>
+              </div>
+              <div class="confidence-row"><span>Evidence confidence</span><strong id="confidenceScore">0%</strong></div>
+            </section>
+
+            <section class="quadrant-card glass-card">
+              <div class="card-heading"><span>TWO-AXIS DECISION</span><strong id="quadrantLabel">—</strong></div>
+              <div class="quadrant-chart" id="quadrantChart">
+                <div class="quadrant-gridlines"></div>
+                <span class="axis-y">Fundamental quality</span>
+                <span class="axis-x">Shri fit</span>
+                <span class="quad-label q1">Quality + fit</span>
+                <span class="quad-label q2">Quality, not Shri price</span>
+                <span class="quad-label q3">Low conviction</span>
+                <span class="quad-label q4">Value-trap risk</span>
+                <div class="quadrant-dot" id="quadrantDot"><span></span></div>
+              </div>
+              <div class="axis-values"><span>Fit <strong id="fitScore">0</strong></span><span>Quality <strong id="qualityScore">0</strong></span></div>
+            </section>
+          </div>
+
+          <section class="score-ribbon glass-card" id="scoreRibbon"></section>
+
+          <div class="reason-grid">
+            <section class="reason-card positive glass-card">
+              <div class="reason-heading"><span>+</span><h4>Why Shri may like it</h4></div>
+              <ul id="positiveReasons"></ul>
+            </section>
+            <section class="reason-card caution glass-card">
+              <div class="reason-heading"><span>!</span><h4>What may fool Shri</h4></div>
+              <ul id="cautionReasons"></ul>
+            </section>
+          </div>
+
+          <section class="detail-card glass-card">
+            <div class="detail-tabs" role="tablist" aria-label="Analysis details">
+              <button class="detail-tab active" data-detail="evidence">Evidence gaps</button>
+              <button class="detail-tab" data-detail="portfolio">Portfolio match</button>
+              <button class="detail-tab" data-detail="kill">Kill conditions</button>
+              <button class="detail-tab" data-detail="scenario">Scenario lab</button>
+              <button class="detail-tab" data-detail="sources">Sources</button>
+            </div>
+            <div class="detail-panel active" data-detail-panel="evidence" id="evidencePanel"></div>
+            <div class="detail-panel" data-detail-panel="portfolio" id="portfolioPanel"></div>
+            <div class="detail-panel" data-detail-panel="kill" id="killPanel"></div>
+            <div class="detail-panel" data-detail-panel="scenario" id="scenarioPanel">
+              <div class="scenario-intro"><h4>Assumption-driven return sandbox</h4><p>This does not forecast the stock. It calculates what your own EPS growth and exit-multiple assumptions imply.</p></div>
+              <div class="scenario-form">
+                <label><span>Current price</span><input id="scenarioPrice" type="number" step="0.01" placeholder="100"></label>
+                <label><span>Current P/E</span><input id="scenarioPe" type="number" step="0.01" placeholder="10"></label>
+                <label><span>Years</span><input id="scenarioYears" type="number" min="1" max="10" value="5"></label>
+              </div>
+              <div class="scenario-cases">
+                <label><span>Bear</span><input id="bearGrowth" type="number" value="2"><input id="bearExit" type="number" value="7"><small>EPS growth % / exit P/E</small></label>
+                <label><span>Base</span><input id="baseGrowth" type="number" value="12"><input id="baseExit" type="number" value="11"><small>EPS growth % / exit P/E</small></label>
+                <label><span>Bull</span><input id="bullGrowth" type="number" value="22"><input id="bullExit" type="number" value="15"><small>EPS growth % / exit P/E</small></label>
+              </div>
+              <button class="ghost-button" id="runScenarioButton">Calculate assumptions</button>
+              <div class="scenario-output" id="scenarioOutput"></div>
+            </div>
+            <div class="detail-panel" data-detail-panel="sources" id="sourcesPanel"></div>
+          </section>
+        </article>
+      </div>
+    </section>
+
+    <section class="dna-section section-shell" id="dna">
+      <div class="section-heading reveal">
+        <div>
+          <span class="section-number">02 / PORTFOLIO DNA</span>
+          <h2>The pattern behind the picks.</h2>
+        </div>
+        <p>The model learns from your direct stock choices—not the companies held inside your mutual funds. Explicitly disowned names are removed from calibration instead of quietly contaminating the profile.</p>
+      </div>
+
+      <div class="dna-grid">
+        <section class="trait-card glass-card reveal">
+          <div class="card-heading"><span>PHILOSOPHY WEIGHTS</span><strong>Living model</strong></div>
+          <div id="traitBars" class="trait-bars"></div>
+          <p class="microcopy">The weights describe attraction, not correctness. Quality, governance and cash flow can override them.</p>
+        </section>
+
+        <section class="cluster-card glass-card reveal">
+          <div class="card-heading"><span>HOLDING CLUSTERS</span><strong>Click a name</strong></div>
+          <div id="clusterBoard" class="cluster-board"></div>
+        </section>
+
+        <section class="bias-card glass-card reveal">
+          <div class="card-heading"><span>BIAS GUARD</span><strong>Built in</strong></div>
+          <div id="biasList" class="bias-list"></div>
+        </section>
+      </div>
+
+      <div class="excluded-card glass-card reveal">
+        <div>
+          <span class="section-number">CALIBRATION HYGIENE</span>
+          <h3>Deliberately excluded</h3>
+          <p>These positions do not represent Shri's intended philosophy and therefore receive zero learning weight.</p>
+        </div>
+        <div id="excludedList" class="excluded-list"></div>
+      </div>
+    </section>
+
+    <section class="profile-lab section-shell" id="profileLab">
+      <div class="section-heading reveal">
+        <div>
+          <span class="section-number">03 / TEACH THE BRAIN</span>
+          <h2>Make the philosophy yours.</h2>
+        </div>
+        <p>Adjust what matters, save locally, and rerun the same company. This is not machine-learning theatre—the changed weight is visible and reversible.</p>
+      </div>
+      <div class="profile-lab-grid">
+        <section class="weight-editor glass-card reveal" id="weightEditor"></section>
+        <section class="profile-summary glass-card reveal">
+          <span class="summary-kicker">CURRENT MODEL</span>
+          <h3 id="profileName">India tangible-growth and rerating barbell</h3>
+          <p id="profileNote"></p>
+          <div class="profile-actions">
+            <button class="primary-button magnetic" id="saveProfileButton">Save on this device</button>
+            <button class="ghost-button" id="resetProfileButton">Reset defaults</button>
+          </div>
+          <div class="local-note"><span>●</span> No broker login. No portfolio leaves your browser.</div>
+        </section>
+      </div>
+    </section>
+
+    <section class="method-section section-shell" id="method">
+      <div class="section-heading reveal">
+        <div>
+          <span class="section-number">04 / METHOD</span>
+          <h2>Serious enough to disagree with you.</h2>
+        </div>
+        <p>The app is deliberately designed to say “not enough data,” “great business but not your price,” or “very Shri, but possibly a trap.”</p>
+      </div>
+      <div class="method-grid">
+        <article class="method-step reveal"><span>01</span><h3>Identify</h3><p>Resolve the actual company, exchange and security type before scoring anything.</p></article>
+        <article class="method-step reveal"><span>02</span><h3>Normalize</h3><p>Map filings and market data into a sector-aware schema. Missing values stay missing.</p></article>
+        <article class="method-step reveal"><span>03</span><h3>Separate</h3><p>Measure personal philosophy fit and objective fundamental quality independently.</p></article>
+        <article class="method-step reveal"><span>04</span><h3>Challenge</h3><p>Run value-trap, cycle, leverage, cash-conversion, governance and concentration tests.</p></article>
+      </div>
+      <div class="data-policy glass-card reveal">
+        <div>
+          <span class="section-number">DATA REALITY</span>
+          <h3>Free does not mean real-time, complete or licensed for redistribution.</h3>
+        </div>
+        <p>The default lookup uses a documented free global daily-data endpoint with a strict request limit. Indian real-time exchange feeds are a separate licensed product. For a serious result, use current filings or the companion Skill's cited research export.</p>
+      </div>
+      <div class="disclaimer-panel reveal">
+        <span>IMPORTANT</span>
+        <p><strong>This is an educational, personal research project—not a buy suggestion, sell suggestion, target price, advisory service or promise of return.</strong> Scores reflect supplied evidence and a personalised philosophy model. They can be wrong, stale or incomplete. Verify filings and consult a properly registered professional when appropriate.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="brand footer-brand"><span class="brand-mark">S</span><span><strong>SHRI'S BRAIN</strong><small>stocks, decoded</small></span></div>
+    <p>Built to make the thought process visible.</p>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+
+  <dialog id="infoDialog">
+    <button class="dialog-close" aria-label="Close">×</button>
+    <span class="section-number">WHY THIS ARCHITECTURE</span>
+    <h2>Visual app outside. Research brain inside.</h2>
+    <p>The app handles animation, scoring transparency, uploads and portfolio maps. The companion Skill handles current web research, primary-source citations and sector judgment, then exports a JSON file this app can import.</p>
+    <ul>
+      <li>Alpha Vantage can supply limited free daily BSE data, with a small daily request allowance.</li>
+      <li>It does not guarantee complete Indian fundamentals or free NSE real-time data.</li>
+      <li>NSE's official real-time and delayed data products are licensed and paid.</li>
+      <li>When free data is thin, the honest fallback is a current filing upload—not invented precision.</li>
+    </ul>
+  </dialog>
+
+  <script src="profile.js?v=20260712-brain-r2"></script>
+  <script src="scoring.js?v=20260712-brain-r2"></script>
+  <script src="app.js?v=20260712-brain-r2"></script>
+</body>
+</html>
