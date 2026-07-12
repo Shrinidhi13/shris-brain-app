@@ -1,0 +1,86 @@
+{
+  "company": {
+    "name": "Company name",
+    "symbol": "TICKER.BSE",
+    "exchange": "BSE",
+    "security_type": "equity",
+    "sector": "generic",
+    "subsector": null,
+    "market_cap_band": "mid",
+    "currency": "INR"
+  },
+  "dates": {
+    "price_as_of": "2026-07-10",
+    "fundamentals_as_of": "2026-03-31",
+    "freshness": "user_uploaded"
+  },
+  "valuation": {
+    "price": null,
+    "market_cap_cr": null,
+    "pe": null,
+    "pb": null,
+    "ev_ebitda": null,
+    "dividend_yield": null,
+    "fcf_yield": null
+  },
+  "quality": {
+    "roe": null,
+    "roa": null,
+    "roce": null,
+    "revenue_cagr_3y": null,
+    "profit_cagr_3y": null,
+    "ocf_to_pat": null,
+    "fcf_positive_years_5": null,
+    "interest_coverage": null,
+    "debt_to_equity": null,
+    "net_debt_to_ebitda": null
+  },
+  "banking": {
+    "gross_npa": null,
+    "net_npa": null,
+    "credit_cost": null,
+    "provision_coverage": null,
+    "capital_adequacy": null,
+    "casa": null,
+    "nim": null,
+    "loan_growth": null,
+    "deposit_growth": null
+  },
+  "operating": {
+    "operating_margin": null,
+    "net_margin": null,
+    "order_book_to_revenue": null,
+    "working_capital_days": null,
+    "market_share_trend": null,
+    "presales_growth": null,
+    "collections_to_sales": null,
+    "nav_discount": null
+  },
+  "qualitative": {
+    "governance": null,
+    "management_execution": null,
+    "capital_allocation": null,
+    "tangible_assets": null,
+    "understandability": null,
+    "india_tailwind": null,
+    "catalyst": null,
+    "regulatory_or_pipeline_quality": null,
+    "cyclicality": null,
+    "data_confidence": null
+  },
+  "portfolio": {
+    "current_weight": 0,
+    "sector_weight": null,
+    "overlap_score": null
+  },
+  "red_flags": [],
+  "sources": [
+    {
+      "title": "Latest annual or quarterly filing",
+      "url": "https://example.com/filing",
+      "date": "2026-07-10",
+      "type": "company_filing"
+    }
+  ],
+  "analyst_notes": []
+}

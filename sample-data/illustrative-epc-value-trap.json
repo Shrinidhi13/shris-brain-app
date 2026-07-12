@@ -1,0 +1,75 @@
+{
+  "company": {
+    "name": "Illustrative EPC Limited",
+    "symbol": "EPCDEMO.BSE",
+    "exchange": "BSE",
+    "security_type": "equity",
+    "sector": "infrastructure",
+    "subsector": "roads and EPC",
+    "market_cap_band": "small",
+    "currency": "INR"
+  },
+  "dates": {
+    "price_as_of": "2026-07-10",
+    "fundamentals_as_of": "2026-03-31",
+    "freshness": "illustrative_demo"
+  },
+  "valuation": {
+    "price": 100,
+    "market_cap_cr": 4000,
+    "pe": 8,
+    "pb": 1.4,
+    "ev_ebitda": 6,
+    "dividend_yield": 0.5,
+    "fcf_yield": -2
+  },
+  "quality": {
+    "roe": 13,
+    "roa": 4,
+    "roce": 12,
+    "revenue_cagr_3y": 18,
+    "profit_cagr_3y": 22,
+    "ocf_to_pat": 0.25,
+    "fcf_positive_years_5": 1,
+    "interest_coverage": 2.1,
+    "debt_to_equity": 1.7,
+    "net_debt_to_ebitda": 4.3
+  },
+  "banking": {},
+  "operating": {
+    "operating_margin": 11,
+    "net_margin": 5,
+    "order_book_to_revenue": 3.1,
+    "working_capital_days": 190,
+    "market_share_trend": null,
+    "presales_growth": null,
+    "collections_to_sales": null,
+    "nav_discount": null
+  },
+  "qualitative": {
+    "governance": 58,
+    "management_execution": 65,
+    "capital_allocation": 48,
+    "tangible_assets": 88,
+    "understandability": 82,
+    "india_tailwind": 92,
+    "catalyst": 80,
+    "regulatory_or_pipeline_quality": null,
+    "cyclicality": 72,
+    "data_confidence": 82
+  },
+  "portfolio": {
+    "current_weight": 0,
+    "sector_weight": 14,
+    "overlap_score": 82
+  },
+  "red_flags": [
+    {
+      "code": "cash_conversion",
+      "severity": "medium",
+      "note": "Operating cash flow is weak relative to profit"
+    }
+  ],
+  "sources": [],
+  "analyst_notes": ["All values are fictional and for testing only."]
+}
